@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Enable private push",
+      "command": "git config --global user.email \"4614260+raakasf@users.noreply.github.com\" && git commit --amend --reset-author",
+      "type": "shell",
+      "problemMatcher": []
+    }
+  ]
+}
