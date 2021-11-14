@@ -5,7 +5,11 @@
       "label": "Enable private push",
       "command": "git config --global user.email \"4614260+raakasf@users.noreply.github.com\" && git commit --amend --reset-author",
       "type": "shell",
-      "problemMatcher": []
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
