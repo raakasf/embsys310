@@ -10,6 +10,8 @@ Basically, the contents of registr R0 (0) get copied to address 0x42420980 (LED 
 
 ### b. What were the instructions produced when writing to the RCC_AHB2ENR without using bit-banding?
 
+
+
 ## Problem 2. Create a function “func1” with 5 arguments and call “func1” from within another function “func2”. Trace thru the assembler and note:
 
 a. How does the calling function “func2” pass the values to the called function “func1”?
