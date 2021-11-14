@@ -44,6 +44,9 @@ BX      LR              # branch indirect to the calling func2
 
 ### d. Any other observations?
 
+When the call return back to from where func2 was called, all registers look
+the same as they were before calling, due the the `POP`s as noted above.
+
 ## Problem 3. Following the queue data structure approach, design, implement and test a stack data structure
 
 a. The following is the list of requirements:
