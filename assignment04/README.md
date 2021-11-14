@@ -17,9 +17,30 @@ Load contents of RCC_AHB2ENR to R0, then OR it with 1 to enable, then load the a
 
 ### a. How does the calling function “func2” pass the values to the called function “func1”?
 
+From the calling function (func2), the 5th argument is stored at the address on the stack pointer, this makes R0 available again. 
+Then the other arguments are MOVed into register R0-R3.
+
 ### b. What extra code did the compiler generate before calling the function “func1” with the multiple arguments?
 
-### c. What extra code did the compiler generate inside the called function “funct1” with the list of multiple arguments?
+The only extra code was to store (`STR R0, [SP]`) an argument on the stack,
+`BL func1` to branch with label to call the function and `POP {R1, PC}` to
+retrieve the PC when it comes back
+
+### c. What extra code did the compiler generate inside the called function “func1” with the list of multiple arguments?
+
+The only extra code is
+
+```ASM
+PUSH    {R4}            # save whatever is in R4
+LDR     R4, [SP, #0x4]  # get the 5th argument
+```
+
+to return back to the calling function and restore everything back:
+
+```ASM
+POP     {R4}            # restore whatever was in R4 (as it was over-written above)
+BX      LR              # branch indirect to the calling func2
+```
 
 ### d. Any other observations?
 
