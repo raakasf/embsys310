@@ -4,7 +4,7 @@
 
 ### a. What instructions does the compiler produce in assembly for “writing” to the RCC_AHB2ENR bit when using bit-band address?
 
-These are the [instructions produced for writing to RCC_AHB2ENR](assignment04/led_a_bit_banding.png). Basically, the contents of registr R0 (0) get copied to address 0x42420980 (LED 1)
+These are the [instructions produced for writing to RCC_AHB2ENR](led_a_bit_banding.png). Basically, the contents of registr R0 (0) get copied to address 0x42420980 (LED 1)
 
 ### b. What were the instructions produced when writing to the RCC_AHB2ENR without using bit-banding?
 
