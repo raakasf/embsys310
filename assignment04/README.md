@@ -36,7 +36,8 @@ a. The following is the list of requirements:
 - vii. Provide a function that returns 1 if stack is full.
 - viii. Return (-1) for error conditions
 
-b. Provide a list of the test cases and their implementations inside of main.c
+b. Provide a list of the test cases and their implementations inside of main.  
+
 c. Separate the stack code from the rest of the test code (create stack.h & stack.c)
 
 ## Problem 4. Bonus: Using the power of pointers and type casting, create a function that can determine if a computer is big-endian or little-endian. Test your function in the simulator and modify the Project Options (as shown in the figure below) against
