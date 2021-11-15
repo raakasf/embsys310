@@ -17,7 +17,7 @@ Load contents of RCC_AHB2ENR to R0, then OR it with 1 to enable, then load the a
 
 ### a. How does the calling function “func2” pass the values to the called function “func1”?
 
-From the calling function (func2), the 5th argument is stored at the address on the stack pointer, this makes R0 available again. 
+From the calling function (func2), the 5th argument is stored at the address on the stack pointer, this makes R0 available again.
 Then the other arguments are MOVed into register R0-R3.
 
 ### b. What extra code did the compiler generate before calling the function “func1” with the multiple arguments?
@@ -62,9 +62,42 @@ a. The following is the list of requirements:
 
 b. Provide a list of the test cases and their implementations inside of main.  
 
+  1. initialize stack, check empty and full condition
+  2. Case: pop an empty stack
+  3. Case: add an element to the stack, stack shouldn't be empty nor full
+  4. Case: fill the stack to size, stack should be full
+            then pop them all, stack should be empty
+  5. Case: Full stack, pushing another item should fail
+
 c. Separate the stack code from the rest of the test code (create stack.h & stack.c)
+
+Created 3 separate files
 
 ## Problem 4. Bonus: Using the power of pointers and type casting, create a function that can determine if a computer is big-endian or little-endian. Test your function in the simulator and modify the Project Options (as shown in the figure below) against
 
 a. Cortex M4 (Little endian option)
+
 b. Cortex M4 (Big Endian option)
+
+Use the following code and change the option in simulator to little and big endian:
+
+```c
+#include <stdio.h>
+
+int main()
+{
+  int x = 1;
+  if(*(char *)&x == 1)
+  {
+    printf("little endian");
+  }
+  else
+  {
+    printf("big endian");
+  }
+  return 0;
+}
+```
+
+the above code print `little endian` or `big endian` depending on the option
+selected in the simulator.
