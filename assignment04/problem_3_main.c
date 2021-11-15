@@ -1,159 +1,60 @@
-#include <assert.h>
-#include "stack.h"
+#include<assert.h>
+#include"queue.h"
 
 int main()
 {
-    int result1;
-    int result2;
-    int testChar;
-    
+    int TEST_STACK_SIZE = 3;
     // *******************************************************************
-    // Test1: Retrieve item from an empty stack
+    // Case: initialize stack, check empty and full condition
     // *******************************************************************
-    // Arrange:
-    result1 = -1;
-    testChar = -1;
     stack_init();
-    
-    // Act:
-    result1 = stack_pop(&testChar);
-      
-    // Assert:
-    assert(-1 == result1);
-    assert(-1 == testChar);
-    
+    assert(is_stack_empty() == 1);
+    assert(is_stack_full() == 0);
     
     // *******************************************************************
-    // Test2: Successfully retrieve an item from the stack
+    // Case: pop an empty stack
     // *******************************************************************
-    // Arrange:
-    result1 = -1;
-    result2 = -1;
-    testChar = -1;
-    stack_init();
-    
-    // Act:
-    result1 = stack_push(1);
-    result2 = stack_pop(&testChar);
-    
-    // Assert:
-    assert(0 == result1);
-    assert(0 == result2);
-    assert(1 == testChar);
-    
+    assert(is_stack_empty() == 1);
+    assert(-1 == stack_pop());
+    assert(is_stack_empty() == 1);
     
     // *******************************************************************
-    // Test3: Fill stack, then get all items.
+    // Case: add an element to the stack, stack shouldn't be empty nor full
     // *******************************************************************
-    // Arrange:
-    testChar = -1;
-    stack_init();
-    
-    // Act:
     stack_push(1);
-    stack_push(2);
-    stack_push(3);                                    
-    
-    // Assert:
-    assert(0 == stack_pop(&testChar));
-    assert(3 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(2 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(1 == testChar);
-
+    assert(is_stack_empty() == 0);
+    assert(is_stack_full() == 0);
     
     // *******************************************************************
-    // Test4: Fill stack, then put one more item, should fail
-    // *******************************************************************
-    // Arrange:
-    testChar = -1;
+    // Case: fill the stack to size, stack should be full
+    //       then pop them all, stack should be empty
+    // *******************************************************************    
     stack_init();
-    
-    // Act:
     stack_push(1);
     stack_push(2);
     stack_push(3);
+    assert(is_stack_full() == 1);
     
-    // Assert:
-    assert(-1 == stack_push(4));
+    int result1 = stack_pop();
+    assert(result1 == 3);
+    
+    result1 = stack_pop();
+    assert(result1 == 2);
+    
+    result1 = stack_pop();
+    assert(result1 == 1);
+    assert(is_stack_empty() == 1);
 
-    assert(0 == stack_pop(&testChar));
-    assert(3 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(2 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(1 == testChar);
-
-
-
-    // ***********************************************************************
-    // Test5: Fill stack, retrieve one item, then add item, then retieve all
-    // ***********************************************************************
-    // Arrange:
-    testChar = -1;
+    // *******************************************************************
+    // Case: Full stack, pushing another item should fail
+    // *******************************************************************
     stack_init();
+    for (int i = 0; i < TEST_STACK_SIZE; i++) 
+    {
+        stack_push(i);
+    }
     
-    // Act:
-    stack_push(1);
-    stack_push(2);
-    stack_push(3);
+    assert(-1 == stack_push(4));  
     
-    // Assert:
-    assert(0 == stack_pop(&testChar));
-    assert(3 == testChar);
-
-    assert(0 == stack_push(4));
-
-    assert(0 == stack_pop(&testChar));
-    assert(4 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(2 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(1 == testChar);
-
-    // ***********************************************************************
-    // Test6: Fill stack and retrieve all items. Do it twice in a row.
-    // ***********************************************************************
-    // Arrange:
-    testChar = -1;
-    stack_init();
-    
-    // Act:
-    stack_push(1);
-    stack_push(2);
-    stack_push(3);
-    
-    // Assert:
-    assert(0 == stack_pop(&testChar));
-    assert(3 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(2 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(1 == testChar);
-
-    assert(0 == stack_push(4));
-    assert(0 == stack_push(5));
-    assert(0 == stack_push(6));
-    
-    assert(-1 == stack_push(-1));
-
-    assert(0 == stack_pop(&testChar));
-    assert(6 == testChar);
-   
-    assert(0 == stack_pop(&testChar));
-    assert(5 == testChar);
-
-    assert(0 == stack_pop(&testChar));
-    assert(4 == testChar);
-
     return 0;
 }

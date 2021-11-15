@@ -4,6 +4,8 @@
 
 void stack_init(void);
 int stack_push(int data);
-int stack_pop(int* data);
+int stack_pop(void);
+int is_stack_empty(void);
+int is_stack_full(void);
 
 #endif
