@@ -11,7 +11,7 @@
 ### b. What were the instructions produced when writing to the RCC_AHB2ENR without using bit-banding?
 
 `These are the instructions produced for writing to RCC_AHB2ENR`
-![instructions](led_1_w:o_bit_banding.png)  
+![instructions](led_1_w_o_bit_banding.png)  
 `Load contents of RCC_AHB2ENR to R0, then OR it with 1 to enable, then load the address of RCC_AHB2ENR in R1 and finally store the contents in R0.`
 
 ## Problem 2. Create a function “func1” with 5 arguments and call “func1” from within another function “func2”. Trace thru the assembler and note
