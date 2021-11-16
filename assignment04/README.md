@@ -4,38 +4,39 @@
 
 ### a. What instructions does the compiler produce in assembly for “writing” to the RCC_AHB2ENR bit when using bit-band address?
 
-These are the instructions produced for writing to RCC_AHB2ENR ![instructions](led_a_bit_banding.png).
-
-Basically, the contents of registr R0 (0) get copied to address 0x42420980 (LED 1)
+`These are the instructions produced for writing to RCC_AHB2ENR:`
+![instructions](led_a_bit_banding.png)  
+`Basically, the contents of register `R0` (0) gets copied to address 0x42420980 (LED 1)`
 
 ### b. What were the instructions produced when writing to the RCC_AHB2ENR without using bit-banding?
 
-These are the instructions produced for writing to RCC_AHB2ENR ![instructions](led_1_w:o_bit_banding.png).
-Load contents of RCC_AHB2ENR to R0, then OR it with 1 to enable, then load the address of RCC_AHB2ENR in R1 and finally store the contents in R0.
+`These are the instructions produced for writing to RCC_AHB2ENR`
+![instructions](led_1_w:o_bit_banding.png)  
+`Load contents of RCC_AHB2ENR to R0, then OR it with 1 to enable, then load the address of RCC_AHB2ENR in R1 and finally store the contents in R0.`
 
 ## Problem 2. Create a function “func1” with 5 arguments and call “func1” from within another function “func2”. Trace thru the assembler and note
 
 ### a. How does the calling function “func2” pass the values to the called function “func1”?
 
-From the calling function (func2), the 5th argument is stored at the address on the stack pointer, this makes R0 available again.
-Then the other arguments are MOVed into register R0-R3.
+`From the calling function (func2), the 5th argument is stored at the address on the stack pointer, this makes R0 available again.
+Then the other arguments are MOVed into register R0-R3.`
 
 ### b. What extra code did the compiler generate before calling the function “func1” with the multiple arguments?
 
-The only extra code was to store (`STR R0, [SP]`) an argument on the stack,
-`BL func1` to branch with label to call the function and `POP {R1, PC}` to
-retrieve the PC when it comes back
+`The only extra code was to store (STR R0, [SP]) an argument on the stack,
+(BL func1) to branch with label to call the function and (POP {R1, PC}) to
+retrieve the PC when it comes back`
 
 ### c. What extra code did the compiler generate inside the called function “func1” with the list of multiple arguments?
 
-The only extra code is
+`The only extra code is`
 
 ```ASM
 PUSH    {R4}            # save whatever is in R4
 LDR     R4, [SP, #0x4]  # get the 5th argument
 ```
 
-to return back to the calling function and restore everything back:
+`to return back to the calling function and restore everything back:`
 
 ```ASM
 POP     {R4}            # restore whatever was in R4 (as it was over-written above)
@@ -44,8 +45,8 @@ BX      LR              # branch indirect to the calling func2
 
 ### d. Any other observations?
 
-When the call return back to from where func2 was called, all registers look
-the same as they were before calling, due the the `POP`s as noted above.
+`When the call return back to from where func2 was called, all registers look
+the same as they were before calling, due the the POP's as noted above.`
 
 ## Problem 3. Following the queue data structure approach, design, implement and test a stack data structure
 
@@ -71,7 +72,7 @@ b. Provide a list of the test cases and their implementations inside of main.
 
 c. Separate the stack code from the rest of the test code (create stack.h & stack.c)
 
-Created 3 separate files
+`Created 3 separate files`
 
 ## Problem 4. Bonus: Using the power of pointers and type casting, create a function that can determine if a computer is big-endian or little-endian. Test your function in the simulator and modify the Project Options (as shown in the figure below) against
 
@@ -79,7 +80,7 @@ a. Cortex M4 (Little endian option)
 
 b. Cortex M4 (Big Endian option)
 
-Use the following code and change the option in simulator to little and big endian:
+`Use the following code and change the option in simulator to little and big endian:`
 
 ```c
 #include <stdio.h>
@@ -99,5 +100,5 @@ int main()
 }
 ```
 
-the above code print `little endian` or `big endian` depending on the option
-selected in the simulator.
+`the above code print "little endian" or "big endian" depending on the option
+selected in the simulator.`
