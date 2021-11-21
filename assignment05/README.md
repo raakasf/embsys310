@@ -18,21 +18,28 @@
 2. Create a new file divAsm.s and add the file to the same HelloWorld project above.
     a. Start with the Assembly demo code shared in class (available under Module_06).  
     b. Write the assembly code to take an input argument, divide it by 2, and return the result.  
-        `x`
+
+        ```asm
+        divAsm
+            PUSH {R0,LR}        // save the input argument and return address
+            LDR R0,=myCstr      // load (global) address of address of string into R0
+            LDR R0,[R0]         // load address of string into R0
+            BL  PrintString     // call PrintString to print the string
+            POP {R0,LR}         // Restore R0 and LR
+            MOVS R1, #2         // R1 = 2
+            SDIV R0, R0, R1     // R0 = R0 / R1 
+            BX LR               // return (with function result in R0)
+
+            END
+        ```
 
     c. Invoke the function “PrintString” from within divAsm before doing the division
         computation.  
-        `x`
-
     d. Add a comment for every statement in your assembly function code.  
-        `x`
-
     e. Invoke divAsm() inside of your main function in main.c  
-        `x`
-
     f. Run your program on the board and capture a snapshot image of the output from
         TeraTerm showing the result of the divAsm.  
-        `x`
+        ![instructions](terraterm_div_by_2.png)
 
 3. Implement a swap function in assembly and call it “swapCharsAsm”:
     a. It takes as input two variables of char data type each and swaps the two chars.  
