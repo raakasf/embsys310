@@ -6,7 +6,7 @@
 
 `These are the instructions produced for writing to RCC_AHB2ENR:`
 ![instructions](led_a_bit_banding.png)  
-`Basically, the contents of register `R0` (0) gets copied to address 0x42420980 (LED 1)`
+`Basically, the contents of register R0 (0) gets copied to address 0x42420980 (LED 1)`
 
 ### b. What were the instructions produced when writing to the RCC_AHB2ENR without using bit-banding?
 
