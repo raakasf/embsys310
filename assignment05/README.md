@@ -43,11 +43,7 @@
 
 3. Implement a swap function in assembly and call it “swapCharsAsm”:
     a. It takes as input two variables of char data type each and swaps the two chars.  
-        `x`
-
     b. Add a comment for every statement in your assembly function code.  
-        `x`
-
     c. Bonus: Return 0 if the two chars are identical; otherwise, return 1.  
         `x`
 
