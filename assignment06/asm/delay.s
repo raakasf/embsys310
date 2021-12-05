@@ -45,14 +45,10 @@ Return value    : None
 *******************************************************************************/  
 
 delay
-    loop1:
-    CBZ R0,loop1exit // if i = 0 then exit the loop
-        SUBS R0,#1  // duration (i.e., loop counter) decrement.
-        B loop1     // Next iteration.
-    loop1exit:      // Exit loop continue with code after the loop.
-    BX LR      // Return to the address where this function was called.
-    
-    // Note: we don't care about setting R0(which would hold the return value)
-    // because this function does not return anything.
-
+    loop:
+    CBZ R0,loopexit     // exit if 0
+      SUBS R0,#1        // decrement counter
+      B loop            // next iteration
+    loopexit:           // exit loop
+    BX LR               // return
     END

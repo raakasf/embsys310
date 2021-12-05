@@ -54,34 +54,17 @@ Return value    : None
 PERIPHERAL_BIT_BAND_ALIAS EQU 0x42000000
 RCC_AHB2ENR_OFFSET EQU 0x2104C
 
-// Bitband address calculation formula
-// (0x42000000+(0x2104C *32) + (1*4))) = 0x1;
-
 enable_rcc
-    // 1st term: bit_number*4. bit_number corresponds to the port.
-    MOV R1,#4    // R1 = 4
-    MUL R0,R0,R1 // R0 *= 4
-    
-    // 2nd term: 0x2104C * 32
-    LDR R1,=RCC_AHB2ENR_OFFSET // Load, R1 = 0x2104C
-    MOV R2,#32                 // R2 = 32
-    MUL R1,R1,R2               // R1 *= 32
-    
-    // 3rd term: 0x42000000
-    LDR R2,=PERIPHERAL_BIT_BAND_ALIAS // Load, R2 = 0x4200000
-    
-    // Add the terms to get the bit address.
-    ADD R0,R0,R1  // R0 += R1
-    ADD R0,R0,R2  // R0 += R2 
-    
-    // Load the bit from memory, update it and write it back to memory.
-    LDR R1,[R0]   // Load value from address in R0, to R1.
-    MOV R1,#1     // R1 = 1
-    STR R1,[R0]   // Store R1 value to address in R0.
-    
-    BX LR      // Return to the address where this function was called.
-    
-    // Note: we don't care about setting R0(which would hold the return value)
-    // because this function does not return anything.
-
+    MOV R1,#4                           // R1 = 4
+    MUL R0,R0,R1                        // R0 *= 4
+    LDR R1,=RCC_AHB2ENR_OFFSET          // Load, R1 = 0x2104C
+    MOV R2,#32                          // R2 = 32
+    MUL R1,R1,R2                        // R1 *= 32
+    LDR R2,=PERIPHERAL_BIT_BAND_ALIAS   // Load, R2 = 0x4200000
+    ADD R0,R0,R1                        // R0 += R1
+    ADD R0,R0,R2                        // R0 += R2 
+    LDR R1,[R0]                         // Load value from address in R0, to R1.
+    MOV R1,#1                           // R1 = 1
+    STR R1,[R0]                         // Store R1 value to address in R0.
+    BX LR
     END

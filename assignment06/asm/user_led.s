@@ -55,35 +55,16 @@ GPIOA_ODR   EQU 0x14
 GPIOA_BIT_5 EQU 0x20
 
 control_user_led1
-    LDR R2, =GPIOA_BASE // Load GPIO port A base address into R2
-    // Load value at memory address GPIOA_BASE+GPIOA_ODR into R3.
-    LDR R3,[R2, #GPIOA_ODR]
-
-    CMP R0,#1  // Compare R0 to 1.
-    ITE EQ     // The next instruction executes if Z is set (EQ), the one after
-               // that executes if Z is cleared(NE).
-    
-    // Turn on LED1 -- set bit[5] = 1
-    // R2 |= GPIOA_BIT_5
-    ORREQ R3,R3,#GPIOA_BIT_5  // If EQ
-
-    // Turn off LED1 -- set bit[5] = 0
-    // R2 &= ~GPIOA_BIT_5
-    BICNE R3,R3,#GPIOA_BIT_5  // If not EQ (NE)
-    
-    // Store value in R3 to memory address GPIOA_BASE+GPIOA_ODR.
-    STR R3,[R2,#GPIOA_ODR]
-    
-    PUSH {LR}  // Save the return address so we can call delay.
-    // We are done using R0 for its initial purpose (as the state of the LED1
-    // peripheral) so we can overwrite it now.
-    MOV R0,R1  // R0 = R1, i.e., R0 now has the duration to delay for.
-    BL delay   // call delay function to hold the current state of the LED.
-    
-    POP {LR}   // Restore LR (the return address).
-    BX LR      // Return to the address where this function was called.
-    
-    // Note: we don't care about setting R0(which would hold the return value)
-    // because this function does not return anything.
-    
+    LDR R2, =GPIOA_BASE         // load port A base address into R2
+    LDR R3,[R2, #GPIOA_ODR]     // load ODR to R3
+    CMP R0,#1                   // compare
+    ITE EQ         
+    ORREQ R3,R3,#GPIOA_BIT_5    // set bit[5] = 1
+    BICNE R3,R3,#GPIOA_BIT_5    // set bit[5] = 0 
+    STR R3,[R2,#GPIOA_ODR]      // store R3 to odr
+    PUSH {LR}                   // save lr for return
+    MOV R0,R1                   // put delay in r0
+    BL delay                    // call delay
+    POP {LR}                    // restore return address
+    BX LR                       // return
     END
