@@ -47,8 +47,8 @@ Return value    : None
 delay
     loop:
     CBZ R0,loopexit     // exit if 0
-      SUBS R0,#1        // decrement counter
-      B loop            // next iteration
+    SUBS R0,#1       	// decrement counter
+    B loop            	// next iteration
     loopexit:           // exit loop
     BX LR               // return
     END
