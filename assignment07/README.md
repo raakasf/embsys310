@@ -24,3 +24,8 @@ c. What part of your program is using the most ROM?
 d. What part of your program is using the most RAM?
 
 `The linker created memory location for CSTACK is using most RAM at 8264 bytes`
+
+## Problem 3
+
+Optimize the usage of ROM or RAM resources:
+`We can reduce the size of program in ROM by optimizing the generated assembly code. The ram usage can be optimized by not using the global variable or using a smaller sized variable for delay.`
